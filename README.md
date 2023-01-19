@@ -14,6 +14,8 @@ BabelStrike takes a full names list as input and performs 1. Romanization of non
 {f} = first letter of Name, {fi} = first two letters of Name ...  
 {l} = first letter of Lastname, {la} = first two letters of Lastname ...  
 
+**The rules can be automatically aplied to the reversed version of the full name as well, by using [-a].**
+
 |                          |                 |                |            |                | 
 | :----------------------: |:---------------:|:--------------:| :--------: | :------------: | 
 | {firstname}{lastname}    | {f}{l}          | {lastname}{f}    | {f}{la}  | {firstname}    |
@@ -26,8 +28,6 @@ BabelStrike takes a full names list as input and performs 1. Romanization of non
 | {f}_{lastname}           | {fi}_{lastname} | {lastname}_{fi}  | {la}_{f} |                |
 | {f}-{lastname}           | {fi}-{lastname} | {lastname}-{fi}  | {la}-{f} |                |
 | {f} {lastname}           | {fi} {lastname} | {lastname} {fi}  | {la} {f} |                |
-
-**The rules can be automatically aplied to the reversed version of the full name as well by using [-r].**
 
 ### When name includes Middle
 

@@ -35,12 +35,12 @@ BabelStrike takes a full names list as input and performs 1. Romanization of non
 | :------------------------------: |:------------------------:|:-------------------------:| :---------: | :------------: | 
 | {firstname}{middle}{lastname}    | {f}{m}{l}                | {lastname}{middle}{f}     | {f}{m}{l}   |                |
 | {firstname}.{middle}.{lastname}  | {f}.{m}.{l}              | {lastname}.{middle}.{f}   | {f}.{m}.{l} |                |
-| {firstname}_{middle}_{lastname}  | {f}_{m}_{l}              | {lastname}_{middle}_{f}   | {f}_{m}_{l} |                |
+| {firstname}\_{middle}\_{lastname}  | {f}\_{m}\_{l}              | {lastname}\_{middle}\_{f}   | {f}\_{m}\_{l} |                |
 | {firstname}-{middle}-{lastname}  | {f}-{m}-{l}              | {lastname}-{middle}-{f}   | {f}-{m}-{l} |                |
 | {firstname} {middle} {lastname}  | {f} {m} {l}              | {lastname} {middle} {f}   | {f} {m} {l} |                |
 | {f}{middle}{lastname}            | {fi}{middle}{lastname}   | {lastname}{middle}{fi}    | {firstname} |                |
 | {f}.{middle}.{lastname}          | {fi}.{middle}.{lastname} | {lastname}.{middle}.{fi}  | {middle}    |                |
-| {f}_{middle}_{lastname}          | {fi}_{middle}_{lastname} | {lastname}_{middle}_{fi}  | {lastname}  |                |
+| {f}\_{middle}\_{lastname}          | {fi}\_{middle}\_{lastname} | {lastname}\_{middle}\_{fi}  | {lastname}  |                |
 | {f}-{middle}-{lastname}          | {fi}-{middle}-{lastname} | {lastname}-{middle}-{fi}  |             |                |
 | {f} {middle} {lastname}          | {fi} {middle} {lastname} | {lastname} {middle} {fi}  |             |                |
 

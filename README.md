@@ -29,7 +29,7 @@ BabelStrike takes a full names list as input and performs 1. Romanization of non
 | {f}-{lastname}           | {fi}-{lastname} | {lastname}-{fi}  | {la}-{f} |                |
 | {f} {lastname}           | {fi} {lastname} | {lastname} {fi}  | {la} {f} |                |
 
-### When name includes Middle
+#### Conversion rules when middle name is detected
 
 |                                  |                          |                           |             |                | 
 | :------------------------------: |:------------------------:|:-------------------------:| :---------: | :------------: | 

@@ -4,9 +4,27 @@
 <img src="https://img.shields.io/badge/Maintained%3F-Yes-96c40f">
 
 ## Purpose
-The purpose of this tool is to normalize and generate possible usernames out of a full names list that may include names written in multiple (non-English) languages, common problem occuring from scraped data (e.g. Linkedin).
+The purpose of this tool is to normalize and generate possible usernames out of a full names list that may include names written in multiple (non-English) languages, common problem occuring from scraped employee names lists (e.g. from Linkedin).
 
 BabelStrike takes a full names list as input and performs 1. Romanization of non-English names (based on language alphabet transliteration maps) AND|OR 2. implements name-to-username conversions based on various naming convention rules.
+
+## Name to Usernames Convertion Rules
+Table of rules for generating usernames:  
+
+{f} = first letter of Name, {fi} = first two letters of Name ...
+{l} = first letter of Lastname, {la} = first two letters of Lastname ...
+
+|                          |               |                |                  |
+| :----------------------: |:-------------:|:--------------:| :--------------: |
+| {firstname}              | {f}{l}        | {f}_{lastname} | {fi} {lastname}  |
+| {lastname}               | {f}.{l}       | {f}-{lastname} | {f}{la}          |
+| {firstname}{lastname}    | {f}_{l}       | {f} {lastname} | {f}.{la}         |
+| {firstname}.{lastname}   | {f}-{l}       | {fi}{lastname} | {f}_{la}         |
+| {firstname}_{lastname}   | {f} {l}       | {fi}.{lastname}| {f}-{la}         |
+| {firstname}-{lastname}   | {f}{lastname} | {fi}_{lastname}| {f} {la}         |
+| {firstname} {lastname}   | {f}.{lastname}| {fi}-{lastname}|                  |
+
+**The rules will be automatically aplied to the reversed version of the full name as well.**
 
 ## Contributions
 In order for the Romanization feature to be accurate, I decided to use custom character substitution maps for each language preferably made by native speakers. 

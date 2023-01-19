@@ -11,21 +11,23 @@ BabelStrike takes a full names list as input and performs 1. Romanization of non
 ## Name to Usernames Convertion Rules
 Table of rules for generating usernames:  
 
-
 {f} = first letter of Name, {fi} = first two letters of Name ...  
 {l} = first letter of Lastname, {la} = first two letters of Lastname ...  
 
-|                          |               |                |                  |
-| :----------------------: |:-------------:|:--------------:| :--------------: |
-| {firstname}              | {f}{l}        | {f}_{lastname} | {fi} {lastname}  |
-| {lastname}               | {f}.{l}       | {f}-{lastname} | {f}{la}          |
-| {firstname}{lastname}    | {f}_{l}       | {f} {lastname} | {f}.{la}         |
-| {firstname}.{lastname}   | {f}-{l}       | {fi}{lastname} | {f}_{la}         |
-| {firstname}_{lastname}   | {f} {l}       | {fi}.{lastname}| {f}-{la}         |
-| {firstname}-{lastname}   | {f}{lastname} | {fi}_{lastname}| {f} {la}         |
-| {firstname} {lastname}   | {f}.{lastname}| {fi}-{lastname}|                  |
+|                          |                 |                |            |                | 
+| :----------------------: |:---------------:|:--------------:| :--------: | :------------: | 
+| {firstname}{lastname}    | {f}{l}          | {lastname}{f}    | {f}{la}  | {firstname}    |
+| {firstname}.{lastname}   | {f}.{l}         | {lastname}.{f}   | {f}.{la} | {lastname}     |
+| {firstname}_{lastname}   | {f}_{l}         | {lastname}_{f}   | {f}_{la} |                |
+| {firstname}-{lastname}   | {f}-{l}         | {lastname}-{f}   | {f}-{la} |                |
+| {firstname} {lastname}   | {f} {l}         | {lastname} {f}   | {f} {la} |                |
+| {f}{lastname}            | {fi}{lastname}  | {lastname}{fi}   | {la}{f}  |                |
+| {f}.{lastname}           | {fi}.{lastname} | {lastname}.{fi}  | {la}.{f} |                |
+| {f}_{lastname}           | {fi}_{lastname} | {lastname}_{fi}  | {la}_{f} |                |
+| {f}-{lastname}           | {fi}-{lastname} | {lastname}-{fi}  | {la}-{f} |                |
+| {f} {lastname}           | {fi} {lastname} | {lastname} {fi}  | {la} {f} |                |
 
-**The rules will be automatically aplied to the reversed version of the full name as well.**
+**The rules can be automatically aplied to the reversed version of the full name as well by using [-r].**
 
 ## Contributions
 In order for the Romanization feature to be accurate, I decided to use custom character substitution maps for each language preferably made by native speakers. 

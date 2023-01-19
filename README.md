@@ -9,7 +9,7 @@ The purpose of this tool is to normalize and generate possible usernames out of 
 BabelStrike takes a full names list as input and performs 1. Romanization of non-English names (based on language alphabet transliteration maps) AND|OR 2. implements name-to-username conversions based on various naming convention rules.
 
 ## Name to Usernames Convertion Rules
-Table of rules for generating usernames:  
+### Table of rules for generating usernames:  
 
 {f} = first letter of Name, {fi} = first two letters of Name ...  
 {l} = first letter of Lastname, {la} = first two letters of Lastname ...  
@@ -28,6 +28,21 @@ Table of rules for generating usernames:
 | {f} {lastname}           | {fi} {lastname} | {lastname} {fi}  | {la} {f} |                |
 
 **The rules can be automatically aplied to the reversed version of the full name as well by using [-r].**
+
+### When name includes Middle
+
+|                                  |                          |                           |             |                | 
+| :------------------------------: |:------------------------:|:-------------------------:| :---------: | :------------: | 
+| {firstname}{middle}{lastname}    | {f}{m}{l}                | {lastname}{middle}{f}     | {f}{m}{l}   |                |
+| {firstname}.{middle}.{lastname}  | {f}.{m}.{l}              | {lastname}.{middle}.{f}   | {f}.{m}.{l} |                |
+| {firstname}_{middle}_{lastname}  | {f}_{m}_{l}              | {lastname}_{middle}_{f}   | {f}_{m}_{l} |                |
+| {firstname}-{middle}-{lastname}  | {f}-{m}-{l}              | {lastname}-{middle}-{f}   | {f}-{m}-{l} |                |
+| {firstname} {middle} {lastname}  | {f} {m} {l}              | {lastname} {middle} {f}   | {f} {m} {l} |                |
+| {f}{middle}{lastname}            | {fi}{middle}{lastname}   | {lastname}{middle}{fi}    | {firstname} |                |
+| {f}.{middle}.{lastname}          | {fi}.{middle}.{lastname} | {lastname}.{middle}.{fi}  | {middle}    |                |
+| {f}_{middle}_{lastname}          | {fi}_{middle}_{lastname} | {lastname}_{middle}_{fi}  | {lastname}  |                |
+| {f}-{middle}-{lastname}          | {fi}-{middle}-{lastname} | {lastname}-{middle}-{fi}  |             |                |
+| {f} {middle} {lastname}          | {fi} {middle} {lastname} | {lastname} {middle} {fi}  |             |                |
 
 ## Contributions
 In order for the Romanization feature to be accurate, I decided to use custom character substitution maps for each language preferably made by native speakers. 

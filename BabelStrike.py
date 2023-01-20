@@ -18,7 +18,7 @@ from language_classes import *
 parser = argparse.ArgumentParser()
 
 parser.add_argument("-f", "--file", action = "store", help = "File to process.", required = True)
-parser.add_argument("-r", "--romanization", action="store_true", help = "Transliterate names to latin alphabet.")
+parser.add_argument("-r", "--romanization", action="store_true", help = "Transliterate names to the latin alphabet.")
 parser.add_argument("-c", "--convertion", action="store_true", help = "Perform name-to-username convertions.")
 parser.add_argument("-a", "--auto-reverse", action="store_true", help = "Perform name-to-username convertion patterns against the reversed version of each name as well.")
 parser.add_argument("-d", "--domain", action="store", help = "Comma seperated list of domains to add as prefix to each generated username (e.g. EVILCORP\\scott.henderson).")

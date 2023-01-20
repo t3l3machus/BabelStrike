@@ -171,7 +171,7 @@ class BabelStrike:
 			save_output(self.transliterated, f'output_{self.timestamp}')
 			print(f' ├─ Total languages identified: {", ".join(self.identified_languages)}.' if self.identified_languages else ' ├─ Did not identify any non-Latin alphabet names.') 
 			print(f' ├─ Output saved in {ORANGE}transliterated_{self.timestamp}.txt{END} (Transliterated {ORANGE}{converted}/{loaded}{END} lines).')
-			Global.output = f'output_{self.timestamp}.txt'
+			Global.output = f'transliterated_{self.timestamp}.txt'
 		
 		else:
 			

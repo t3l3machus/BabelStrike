@@ -82,7 +82,7 @@ I'm looking for some cool people around the world to create such maps that are b
 ### Instructions
 If you want to contribute a language Class all you have to do is:
 * Find an official Romanization standard for your language's alphabet (e.g. in Wikipedia),
-* Copy a language Class file from the language_classes folder to use as a template (I suggest you use Greek.py),
+* Copy a language Class file from the [language_classes](https://github.com/t3l3machus/BabelStrike/tree/main/language_classes) folder to use as a template (I suggest you use Greek.py),
 * Edit the filename and the Class name to represent your language,
 * Edit the **char_substitution_map** dictionary and create the character substitution map (**Important**: Don't change the name of the dictionary),
   * Map lowercase letters only, 
@@ -99,3 +99,5 @@ If you want to contribute a language Class all you have to do is:
     'υ' : ['y','u']
   }
   ```
+* Save the new class in the **language_classes** folder named appropriately.  
+

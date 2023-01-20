@@ -5,28 +5,18 @@
 
 import re, sys, os
 from time import time, sleep
+from subprocess import check_output
 
 
 ''' Colors '''
-MAIN = '\033[38;5;85m'
 GREEN = '\033[38;5;82m'
-BLUE = '\033[0;38;5;12m'
-GRAY = PLOAD = '\033[38;5;246m'
-NAME = '\033[38;5;228m'
-RED = '\033[1;31m'
-FAIL = '\033[1;91m'
 ORANGE = '\033[0;38;5;214m'
-LRED = '\033[0;38;5;202m'
 BOLD = '\033[1m'
-UNDERLINE = '\033[4m'
 END = '\033[0m'
 
 
 ''' Prefixes '''
 GREEN_DOT = f'[{GREEN}*{END}]'
-RED_DOT = f'[{LRED}*{END}]'
-BLUE_DOT = f'[{BLUE}*{END}]'
-ORANGE_DOT = f'[{ORANGE}*{END}]'
 DEBUG = f'[{ORANGE}Debug{END}]'
 
 
@@ -102,6 +92,35 @@ def loadImports(path):
 
 
 
+def update(repo):
+	
+		updated = False
+
+		try:
+
+			print(f'[{INFO}] Pulling changes from the master branch...')
+			u = check_output(f'cd {cwd}&&git pull {repo} main', shell=True).decode('utf-8')
+
+			if re.search('Updating', u):
+				print(f'[{INFO}] Update completed! Please, restart Villain.')
+				updated = True
+
+			elif re.search('Already up to date', u):
+				print(f'[{INFO}] Already running the latest version!')
+				pass
+
+			else:
+				print(f'[{FAILED}] Something went wrong. Are you running Villain from your local git repository?')
+				print(f'[{DEBUG}] Consider running "git {repo} main" inside the project\'s directory.')
+
+		except:
+			print(f'[{FAILED}] Update failed. Consider running "git pull {repo} main" inside the project\'s directory.')
+
+		if updated:
+			sys.exit(0)
+
+
+
 class Global:
 	
 	latin_alphabet = 'abcdefghijklmnopqrstuvwxyz'
@@ -117,8 +136,13 @@ def exit_with_msg(msg):
 
 
 
+def chill():
+	pass
+
+
+
 def parse_comma_seperated_list(user_input):
-	print('yoddd '+user_input)
+	
 	keywords = []
 
 	if user_input:
@@ -126,9 +150,11 @@ def parse_comma_seperated_list(user_input):
 		for word in user_input.split(","):
 			
 			if word.strip():
+				
 				keywords.append(word.strip()) 
 
 		if not keywords:
+			
 			exit_with_msg("Illegal value(s). Check your input and try again.")
 		
 		else:
@@ -144,7 +170,7 @@ def return_num_of_symbols_in_str(string, blacklisted_symbols):
 	if string:
 		
 		for char in string:
-			#if not char.isalpha() and char not in ['.', ' ']:
+
 			if char in blacklisted_symbols:
 				total += 1
 				

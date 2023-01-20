@@ -3,6 +3,7 @@
 # Author: Panagiotis Chartas (t3l3machus) 
 # https://github.com/t3l3machus
 
+
 import argparse, os
 from threading import Thread
 from common.lang_codes import *
@@ -49,6 +50,7 @@ class BabelStrike:
 	def is_latin_alphabet_only(self, text):
 		
 		for char in text:
+			
 			if char.isalpha() and char not in Global.latin_alphabet:
 				return False
 		
@@ -167,18 +169,18 @@ class BabelStrike:
 		if self.transliterated:
 		
 			save_output(self.transliterated, f'output_{self.timestamp}')
-			print(f' ├─ Total languages identified: {", ".join(self.identified_languages)}.')
-			print(f' ├─ Transliterated {ORANGE}{converted}/{loaded}{END} lines (saved in {ORANGE}output_{self.timestamp}.txt{END}).')
+			print(f' ├─ Total languages identified: {", ".join(self.identified_languages)}.' if self.identified_languages else ' ├─ Did not identify any non-Latin alphabet names.') 
+			print(f' ├─ Output saved in {ORANGE}transliterated_{self.timestamp}.txt{END} (Transliterated {ORANGE}{converted}/{loaded}{END} lines).')
 			Global.output = f'output_{self.timestamp}.txt'
 		
 		else:
 			
-			print(f'{RED_DOT} Nothing to transliterate ¯\_(ツ)_/¯')
+			print(f' ├─ Nothing to transliterate ¯\_(ツ)_/¯')
 			
 			
 		if self.omitted:
 			save_output(self.omitted, f'omitted_{self.timestamp}')
-			print(f' ├─ Ommited {ORANGE}{len(self.omitted)}/{loaded}{END} lines (saved in {ORANGE}omitted_{self.timestamp}.txt{END}).')
+			print(f' ├─ Omitted {ORANGE}{len(self.omitted)}/{loaded}{END} lines (saved in {ORANGE}omitted_{self.timestamp}.txt{END}).')
 		
 		print(' └─ Done!')
 		return
@@ -262,13 +264,6 @@ class Username_Converter:
 
 
 
-	def raw_name(self, n):
-		
-		n = n.replace(" ", "")     # johnsnow
-		self.convertions.append(n)
-
-
-
 	def single_first_and_last(self, n):
 		
 		n = n.split(" ")
@@ -282,18 +277,23 @@ class Username_Converter:
 		
 
 
-	def seperate_by_special_char(self, n, spec_char):
+	def seperate_by_special_char(self, n):
 		
-		n = n.replace(" ", spec_char)    # john.snow    [assuming spec_char = "."]
-		self.convertions.append(n)
+		for c in self.special_char_seperators: 
+			
+			uname = n.replace(" ", c)    # john.snow    [assuming c = "."]
+			self.convertions.append(uname)
 
 
 
-	def initials_only(self, n, spec_char):
+	def initials_only(self, n):
 		
-		words = n.split(' ')		
-		n = spec_char.join([w[0] for w in words]) # j-s       
-		self.convertions.append(n)
+		words = n.split(' ')
+		
+		for c in self.special_char_seperators:
+				
+			uname = c.join([w[0] for w in words]) # j-s    [assuming c = "-"]    
+			self.convertions.append(uname)
 
 
 
@@ -306,20 +306,16 @@ class Username_Converter:
 			if len(n) == 2:
 				
 				self.convertions.append(f'{n[0][0:x]}{n[1]}')  # jsnow    [assuming x = 1]
-				self.convertions.append(f'{n[1]}{n[0][0:x]}')  # snowj    [assuming x = 1]
-				
-				for c in self.special_char_seperators: 
-					self.seperate_by_special_char(f'{n[0][0:x]} {n[1]}', c)	 # j.snow	 [assuming x = 1 AND c = "."]
-					self.seperate_by_special_char(f'{n[1]} {n[0][0:x]}', c)  # snow.j    [assuming x = 1 AND c = "."]
+				self.convertions.append(f'{n[1]}{n[0][0:x]}')  # snowj    [assuming x = 1]				
+				self.seperate_by_special_char(f'{n[0][0:x]} {n[1]}')	 # j.snow	 [assuming x = 1 AND c = "."]
+				self.seperate_by_special_char(f'{n[1]} {n[0][0:x]}')  # snow.j    [assuming x = 1 AND c = "."]
 					
 			elif len(n) == 3:
 				
 				self.convertions.append(f'{n[0][0:x]}{n[1]}{n[2]}')  # jjoesnow    [assuming x = 1]
 				self.convertions.append(f'{n[2]}{n[1]}{n[0][0:x]}')  # snowjoej    [assuming x = 1]
-				
-				for c in self.special_char_seperators: 
-					self.seperate_by_special_char(f'{n[0][0:x]} {n[1]} {n[2]}', c)	 # j.joe.snow	 [assuming x = 1 AND c = "."]
-					self.seperate_by_special_char(f'{n[2]} {n[1]} {n[0][0:x]}', c)  # snow.joe.j    [assuming x = 1 AND c = "."]
+				self.seperate_by_special_char(f'{n[0][0:x]} {n[1]} {n[2]}')	 # j.joe.snow	 [assuming x = 1 AND c = "."]
+				self.seperate_by_special_char(f'{n[2]} {n[1]} {n[0][0:x]}')  # snow.joe.j    [assuming x = 1 AND c = "."]
 
 
 
@@ -333,10 +329,8 @@ class Username_Converter:
 				
 				self.convertions.append(f'{n[0][0:x]}{n[1][0:y]}')  # jsn    [assuming x = 1 AND y = 2]
 				self.convertions.append(f'{n[1][0:y]}{n[0][0:x]}')  # snj    [assuming x = 1 AND y = 2]
-				
-				for c in self.special_char_seperators: 
-					self.seperate_by_special_char(f'{n[0][0:x]} {n[1][0:y]}', c)	 # j.sn	 [assuming x = 1 AND y = 2 AND c = "."]
-					self.seperate_by_special_char(f'{n[1][0:y]} {n[0][0:x]}', c)  # sn.j    [assuming x = 1 AND y = 2 AND c = "."]
+				self.seperate_by_special_char(f'{n[0][0:x]} {n[1][0:y]}')	 # j.sn	 [assuming x = 1 AND y = 2 AND c = "."]
+				self.seperate_by_special_char(f'{n[1][0:y]} {n[0][0:x]}')  # sn.j    [assuming x = 1 AND y = 2 AND c = "."]
 					
 
 
@@ -345,7 +339,6 @@ class Username_Converter:
 		for domain in Global.parsed_domains:
 			
 			self.domain_prefixed.append(f'{domain}\\{username}')
-
 
 
 
@@ -421,25 +414,23 @@ class Username_Converter:
 			# For names of three words with 1 initial at most like "John Joe Snow", "John J. Snow" etc:
 			if details['num_of_words'] in [2, 3] and details['includes_dot_initials'] <= 2:			
 				
-				# ~ self.raw_name(name)
 				self.single_first_and_last(name)
 				
 				for n in name_base_variations:
 					
-					try:
+					# ~ try:
 					
-						for c in self.special_char_seperators: 
-							self.seperate_by_special_char(n, c)		
-							self.initials_only(n, c)								
-							
-						for i in range(1,3): 
-							self.first_x_letters_of_name_only(n, i)
+					self.seperate_by_special_char(n)										
 						
-						self.first_x_letters_of_name_and_y_letters_of_lastname(n, 1, 2)
+					for i in range(1,3): 
+						self.first_x_letters_of_name_only(n, i)
+					
+					self.first_x_letters_of_name_and_y_letters_of_lastname(n, 1, 2)
+					self.initials_only(n)
 						
-					except:
-						self.skipped.append(n)
-						print(f' ├─ Failed to process "{return_short_if_string_too_long(n)}" [{ORANGE}skipped{END}].')
+					# ~ except:
+						# ~ self.skipped.append(n)
+						# ~ print(f' ├─ Failed to process "{return_short_if_string_too_long(n)}" [{ORANGE}skipped{END}].')
 				
 		
 		if self.convertions:
@@ -482,6 +473,9 @@ def main():
 	if not args.quiet:
 		banner()
 	
+	if args.update:
+		update('https://github.com/t3l3machus/BabelStrike')
+	
 	if not args.romanization and not args.convertion:
 		print(f'{DEBUG} This tool can perform Romanization AND/OR implement naming conversion patterns against a provided name list.')
 		exit_with_msg(f'Use [-r] to perform Romanization AND/OR [-c] to perform name-to-usernames conversion.')
@@ -489,12 +483,12 @@ def main():
 	if args.romanization:			
 		babelstrike = BabelStrike()
 		babelstrike.substitution_iterator()
+		print('\r')
 
 	if args.convertion:
 		
 		if Global.output:
 			
-			print('\r')
 			namelist = BabelStrike.transliterated
 			
 		else:

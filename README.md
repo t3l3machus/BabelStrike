@@ -11,6 +11,9 @@ BabelStrike takes a full names list as input and performs 1. Romanization of non
 
 **Romanization feature currently supports**: Greek, Spanish and Polish. Looking for people to contribute language classes, [check how it's done and contribute](#Contributions)!
 
+### Video Presentation
+https://www.youtube.com/watch?v=550S6oAYfDo
+
 ## Preview
 ![image](https://user-images.githubusercontent.com/75489922/213708017-4e435a6f-db5a-44bd-b66c-0a9b77073859.png)
 

@@ -45,6 +45,28 @@ BabelStrike takes a full names list as input and performs 1. Romanization of non
 | {f}-{middle}-{lastname}          | {fi}-{middle}-{lastname} | {lastname}-{middle}-{fi}  |             |                |
 | {f} {middle} {lastname}          | {fi} {middle} {lastname} | {lastname} {middle} {fi}  |             |                |
 
+## Installation & Usage
+Install with pip:
+```
+pip3 install -r requirements.txt
+```
+
+Usage:
+```
+babelstrike.py [-h] -f FILE [-r] [-c] [-a] [-d DOMAIN] [-u] [-q]
+
+options:
+  -h, --help            show this help message and exit
+  -f FILE, --file FILE  File to process.
+  -r, --romanization    Transliterate names to the latin alphabet.
+  -c, --convertion      Perform name-to-username convertions.
+  -a, --auto-reverse    Perform name-to-username convertion patterns against the reversed version of each name as well.
+  -d DOMAIN, --domain DOMAIN
+                        Comma seperated list of domains to add as prefix to each generated username (e.g. EVILCORP\scott.henderson).
+  -u, --update          Pull the latest version from the original repo.
+  -q, --quiet           Do not print the banner on startup.
+```
+
 ## Contributions
 In order for the Romanization feature to be accurate, I decided to use custom character substitution maps for each language preferably made by native speakers. 
 I'm looking for some cool people around the world to create such maps that are basically a Python dictionary.

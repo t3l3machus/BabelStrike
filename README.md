@@ -9,7 +9,7 @@ The purpose of this tool is to normalize and generate possible usernames out of 
 
 BabelStrike takes a full names list as input and performs 1. Romanization of non-English names (based on language alphabet transliteration maps) AND|OR 2. implements name-to-username conversions based on various naming convention rules.
 
-**Romanization feature currently supports**: Greek, Spanish and Polish. Looking for people to contribute language classes, [check how it's done and contribute](#Contributions)!
+**Romanization feature currently supports**: Greek, Hindi, Spanish and Polish. Looking for people to contribute language classes, [check how it's done and contribute](#Contributions)!
 
 ### Video Presentation
 https://www.youtube.com/watch?v=550S6oAYfDo
@@ -57,12 +57,18 @@ https://www.youtube.com/watch?v=550S6oAYfDo
 | {f} {middle} {lastname}          | {fi} {middle} {lastname} | {lastname} {middle} {fi}  |             |                |
 
 ## Installation & Usage
-Install with pip:
+### Install requirements with pip
 ```
 pip3 install -r requirements.txt
 ```
+### Install additional fonts for languages 
+In order to be able to process certain languages, you may need to install additional fonts on your machine. Here's for example how to install Hindi fonts:
+ 1. Download the fonts from here: https://fonts.google.com/specimen/Hind.
+ 2. Unzip and move the fonts in `~/.local/share/fonts` (if the directory does not exist then create it).
 
-Usage:
+If you open a new terminal now the characters will be represented properly (this was tested on kali linux).
+
+### Usage
 ```
 babelstrike.py [-h] -f FILE [-r] [-c] [-a] [-d DOMAIN] [-u] [-q]
 

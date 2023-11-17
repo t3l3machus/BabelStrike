@@ -14,10 +14,8 @@ BabelStrike takes a full names list as input and performs 1. Romanization of non
 ### Video Presentation
 https://www.youtube.com/watch?v=550S6oAYfDo
 
-## Preview
-![image](https://user-images.githubusercontent.com/75489922/213708017-4e435a6f-db5a-44bd-b66c-0a9b77073859.png)
-
-![image](https://user-images.githubusercontent.com/75489922/213708062-3d992884-5858-4bb3-92d3-42510e8ba567.png)
+## Usage Example
+![image](https://github.com/t3l3machus/BabelStrike/assets/75489922/24426b7a-1e0b-4c93-9b6f-5bf658165f1a)
 
 
 ## Name to Usernames Convertion Rules

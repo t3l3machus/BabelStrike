@@ -9,7 +9,7 @@ The purpose of this tool is to normalize and generate possible usernames out of 
 
 BabelStrike takes a full names list as input and performs 1. Romanization of non-English names (based on language alphabet transliteration maps) AND|OR 2. implements name-to-username conversions based on various naming convention rules.
 
-**Romanization feature currently supports**: Greek, Hindi, Spanish, French and Polish. Looking for people to contribute language classes, [check how it's done and contribute](#Contributions)!
+**Romanization feature currently supports**: Greek, Hindi, Spanish, French, Polish and Hungarian. Looking for people to contribute language classes, [check how it's done and contribute](#Contributions)!
 
 ### Video Presentation
 https://www.youtube.com/watch?v=550S6oAYfDo

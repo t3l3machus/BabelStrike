@@ -1,4 +1,4 @@
-class portuguese:
+class Portuguese:
 		
 	char_substitution_map = {
 		

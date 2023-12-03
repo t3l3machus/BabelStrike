@@ -5,9 +5,9 @@
 <img src="https://img.shields.io/badge/Maintained%3F-Yes-96c40f">
 
 ## Purpose
-The purpose of this tool is to normalize and generate possible usernames out of a full names list that may include names written in multiple (non-English) languages, common problem occurring from scraped employee name lists (e.g. from Linkedin).
-
-BabelStrike takes a full names list as input and performs 1. Romanization of non-English names (based on language alphabet transliteration maps) AND|OR 2. implements name-to-username conversions based on various naming convention rules.
+The purpose of this tool is: 
+1. to transliterate and generate possible usernames out of a full names list that may include names written in multiple (non-English) languages, common problem occurring from scraped employee name lists (e.g. from Linkedin).
+2. to transliterate a wordlist that may include words/phrases written in multiple (non-English) languages, common problem occurring from spidering web sites to generate wordlists, e.g., with [CeWL](https://www.kali.org/tools/cewl/).
 
 **Romanization feature currently supports**: Greek, Hindi, Spanish, French, Polish, Portuguese and Hungarian. Looking for people to contribute language classes, [check how it's done and contribute](#Contributions)!
 
@@ -15,11 +15,22 @@ BabelStrike takes a full names list as input and performs 1. Romanization of non
 https://www.youtube.com/watch?v=550S6oAYfDo
 
 ## Usage Example
-The purpose of this tool is to normalize and generate possible usernames out of a full names list that may include names written in multiple (non-English) languages, common problem occurring from scraped employee name lists (e.g. from Linkedin).
+### Transliterate words / phrases
+Use the following command to transliterate a list with words/phrases in multiple (non-English) languages:
+```
+python3 BabelStrike.py -f wordlist.txt -r
+```
+**Note**: Words that are too short will probably cause many language identification missmatches. If the result is inaccurate and you know which language should be used to transliterate from, provide it with --language (-l)
+```
+python3 BabelStrike.py -f wordlist.txt -r -l spanish
+```
+### Full names to possible usernames convertion
+Use the following command to transliterate and generate possible usernames out of a full names list that may include names written in multiple (non-English) languages
+```
+python3 BabelStrike.py -f full_names.txt -r -c -a
+```
 ![image](https://github.com/t3l3machus/BabelStrike/assets/75489922/24426b7a-1e0b-4c93-9b6f-5bf658165f1a)
 
-
-@@ -27,84 +19,10 @@ https://www.youtube.com/watch?v=550S6oAYfDo
 **The rules can be automatically aplied to the reversed version of the full name as well, by using [-a].**
 
 |                          |                 |                |            |                | 

@@ -14,6 +14,7 @@ ORANGE = '\033[0;38;5;214m'
 BOLD = '\033[1m'
 END = '\033[0m'
 MAIN = '\033[38;5;85m'
+FUXIA = '\033[38;5;201m'
 
 ''' Prefixes '''
 INFO = f'[{MAIN}Info{END}]'

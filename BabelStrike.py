@@ -87,9 +87,11 @@ class BabelStrike:
 		for line in contents:
 			
 			line = line.lower().strip()
+			if not line:
+				continue
+				
 			# This variable is used to store multiple variations of a line's translation
 			variations = [line]
-			
 			
 			# Identify the language	
 			lang = self.identify_languge(line) if self.is_latin_alphabet_only(line) == False else 'English'

@@ -109,7 +109,7 @@ class BabelStrike:
 				
 				if lang not in self.supported_languages:
 					if lang not in self.not_supported_lang_alerts:
-						print(f' ├─ Language identified: {lang} (Not Supported)') if not args.troubleshoot else print(f' ├─ {ORANGE} {line if len(line) <= 20 else line[0:15] + "..."}{END} Language identified: {lang} (Not Supported)')
+						print(f' ├─ Language identified: {lang} (Not Supported)') if not args.troubleshoot else print(f' ├─ {ORANGE}{line if len(line) <= 20 else line[0:15] + "..."}{END} Language identified: {lang} (Not Supported)')
 						self.not_supported_lang_alerts.append(lang)
 					self.identified_languages.append(lang)	
 					self.omitted.append(line)
@@ -119,7 +119,7 @@ class BabelStrike:
 					self.language_objects[lang] = str_to_class(lang)
 					self.initialized_languages.append(lang)					
 					self.identified_languages.append(lang)					
-					print(f' ├─ Language identified: {lang}') if not args.troubleshoot else print(f' ├─ {ORANGE} {line if len(line) <= 20 else line[0:15] + "..."}{END} Language identified: {lang}')
+					print(f' ├─ Language identified: {lang}') if not args.troubleshoot else print(f' ├─ {ORANGE}{line if len(line) <= 20 else line[0:15] + "..."}{END} Language identified: {lang}')
 
 				converted += 1
 				

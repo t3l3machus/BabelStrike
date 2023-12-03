@@ -174,7 +174,7 @@ class BabelStrike:
 			save_output(self.transliterated, f'transliterated_{self.timestamp}')
 			print(f' ├─ Total languages identified: {", ".join(uniq_list(self.identified_languages))}.' if self.identified_languages else ' ├─ Did not identify any non-Latin alphabet names.') 
 			if len(uniq_list(self.identified_languages)) >= 5:
-				print(f' ├─ {INFO} BabelStrike detected many different languages. If the result is inaccurate and you know which language should be used to transliterate from, try providing it with --language (-l).')
+				print(f' ├─ {FUXIA}BabelStrike detected many different languages. If the result is inaccurate and you know which language should be used to transliterate from, try providing it with --language (-l).{END}')
 			print(f' ├─ Output saved in {ORANGE}transliterated_{self.timestamp}.txt{END} (Transliterated {ORANGE}{converted}/{loaded}{END} lines).')
 			Global.output = f'transliterated_{self.timestamp}.txt'
 		

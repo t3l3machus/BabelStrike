@@ -17,16 +17,16 @@ from language_classes import *
 # -------------- Arguments -------------- #
 parser = argparse.ArgumentParser()
 
-parser.add_argument("-f", "--file", action = "store", help = "File to process.", required = True)
-parser.add_argument("-r", "--romanization", action="store_true", help = "Transliterate names to the latin alphabet.")
+parser.add_argument("-f", "--file", action = "store", help = "A wordlist or full names list to process.", required = True)
+parser.add_argument("-r", "--romanization", action="store_true", help = "Transliterate each line of the provided file to the latin alphabet. If used in conjunction with --convertion (-c), the file will be interpreted as a full names list.")
 parser.add_argument("-c", "--convertion", action="store_true", help = "Perform name-to-username convertions.")
 parser.add_argument("-a", "--auto-reverse", action="store_true", help = "Perform name-to-username convertion patterns against the reversed version of each name as well.")
 parser.add_argument("-d", "--domain", action="store", help = "Comma seperated list of domains to add as prefix to each generated username (e.g. EVILCORP\\scott.henderson).")
-parser.add_argument("-u", "--update", action="store_true", help = "Pull the latest version from the original repo.")
+parser.add_argument("-l", "--language", action="store", help = "Manually set the language to transliterate from (e.g., Spanish).")
+parser.add_argument("-t", "--troubleshoot", action="store_true", help = "Print sample for each language identified.")
 parser.add_argument("-q", "--quiet", action="store_true", help = "Do not print the banner on startup.")
 
 args = parser.parse_args()
-
 
 if args.domain and not args.convertion:
 	exit_with_msg('Domain prefix must be used with --convertion [-c].')
@@ -39,6 +39,7 @@ if args.domain:
 class BabelStrike:
 	
 	supported_languages = [lang.replace('.py', '') for lang in os.listdir(f'.{os.sep}language_classes')]
+	not_supported_lang_alerts = []
 	initialized_languages = []
 	identified_languages = []
 	language_objects = {}
@@ -107,7 +108,9 @@ class BabelStrike:
 			else:
 				
 				if lang not in self.supported_languages:
-					print(f' ├─ Language identified: {lang} (Not Supported)')
+					if lang not in self.not_supported_lang_alerts:
+						print(f' ├─ Language identified: {lang} (Not Supported)') if not args.troubleshoot else print(f' ├─ {ORANGE} {line if len(line) <= 20 else line[0:15] + "..."}{END} Language identified: {lang} (Not Supported)')
+						self.not_supported_lang_alerts.append(lang)
 					self.identified_languages.append(lang)	
 					self.omitted.append(line)
 					continue
@@ -116,8 +119,8 @@ class BabelStrike:
 					self.language_objects[lang] = str_to_class(lang)
 					self.initialized_languages.append(lang)					
 					self.identified_languages.append(lang)					
-					print(f' ├─ Language identified: {lang}')	
-				
+					print(f' ├─ Language identified: {lang}') if not args.troubleshoot else print(f' ├─ {ORANGE} {line if len(line) <= 20 else line[0:15] + "..."}{END} Language identified: {lang}')
+
 				converted += 1
 				
 			# Romanization
@@ -169,7 +172,9 @@ class BabelStrike:
 		if self.transliterated:
 		
 			save_output(self.transliterated, f'transliterated_{self.timestamp}')
-			print(f' ├─ Total languages identified: {", ".join(self.identified_languages)}.' if self.identified_languages else ' ├─ Did not identify any non-Latin alphabet names.') 
+			print(f' ├─ Total languages identified: {", ".join(uniq_list(self.identified_languages))}.' if self.identified_languages else ' ├─ Did not identify any non-Latin alphabet names.') 
+			if len(uniq_list(self.identified_languages)) >= 5:
+				print(f' ├─ {INFO} BabelStrike detected many different languages. If the result is inaccurate and you know which language should be used to transliterate from, try providing it with --language (-l).')
 			print(f' ├─ Output saved in {ORANGE}transliterated_{self.timestamp}.txt{END} (Transliterated {ORANGE}{converted}/{loaded}{END} lines).')
 			Global.output = f'transliterated_{self.timestamp}.txt'
 		
@@ -413,13 +418,9 @@ class Username_Converter:
 			# AND
 			# For names of three words with 1 initial at most like "John Joe Snow", "John J. Snow" etc:
 			if details['num_of_words'] in [2, 3] and details['includes_dot_initials'] <= 2:			
-				
 				self.single_first_and_last(name)
-				
 				for n in name_base_variations:
-					
 					# ~ try:
-					
 					self.seperate_by_special_char(n)										
 						
 					for i in range(1,3): 
@@ -433,17 +434,14 @@ class Username_Converter:
 						# ~ print(f' ├─ Failed to process "{return_short_if_string_too_long(n)}" [{ORANGE}skipped{END}].')
 				
 		
-		if self.convertions:
-			
-			if args.domain:
-				
+		if self.convertions:	
+			if args.domain:			
 				# Append domain(s) prefix
 				print(f' ├─ Appending domain prefix to each generated username...')
 				
 				for username in self.convertions:
 					self.append_domain(username)
 				
-			
 			print(f' ├─ Removing duplicate usernames...')
 			final_usernames_list = uniq_list(self.convertions + self.domain_prefixed)
 			print(f' ├─ Saving username convertions output...')
@@ -454,12 +452,10 @@ class Username_Converter:
 			print(f' ├─ Total usernames generated: {ORANGE}{len(final_usernames_list)}{END}')
 		
 		else:
-			
 			print(f' ├─ No usernames generated.')
 		
 		
 		if self.skipped:
-			
 			save_output(self.convertions, f'skipped_convertion_{self.timestamp}')
 			print(f' ├─ Skipped {ORANGE}{len(self.skipped)}/{len(self.contents)}{END} lines (saved in {ORANGE}skipped_convertion_{self.timestamp}.txt{END}).')
 			
@@ -472,12 +468,9 @@ def main():
 	
 	if not args.quiet:
 		banner()
-	
-	if args.update:
-		update('https://github.com/t3l3machus/BabelStrike')
-	
+		
 	if not args.romanization and not args.convertion:
-		print(f'{DEBUG} This tool can perform Romanization AND/OR implement naming conversion patterns against a provided name list.')
+		print(f'{DEBUG} This tool can perform Romanization AND/OR implement naming conversion patterns against a provided full names list.')
 		exit_with_msg(f'Use [-r] to perform Romanization AND/OR [-c] to perform name-to-usernames conversion.')
 	
 	if args.romanization:			

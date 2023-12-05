@@ -81,6 +81,7 @@ class BabelStrike:
 		contents = get_file_contents(args.file)
 		loaded = len(contents)
 		converted = 0
+		lang = args.language.strip().title() if args.language else None
 		
 		print(f'{GREEN_DOT} {BOLD}Initiating Romanization...{END}')
 		
@@ -94,7 +95,8 @@ class BabelStrike:
 			variations = [line]
 			
 			# Identify the language	
-			lang = self.identify_languge(line) if self.is_latin_alphabet_only(line) == False else 'English'
+			if not lang:
+				lang = self.identify_languge(line) if self.is_latin_alphabet_only(line) == False else 'English'
 			
 			if not lang:
 				print(f' ├─ Failed to identify the language of: {line if len(line) >= 20 else line[0:15] + "..."}')

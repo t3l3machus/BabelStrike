@@ -171,7 +171,10 @@ class BabelStrike:
 					if new_variations:
 						variations += new_variations
 				
-			self.transliterated += [v.title() for v in variations]
+			if args.convertion:
+				self.transliterated += [v.title() for v in variations]
+			else:
+				self.transliterated += [v for v in variations]
 			
 		if self.transliterated:
 		

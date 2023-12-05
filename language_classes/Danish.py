@@ -7,5 +7,5 @@ class Danish:
       'aa': ['a', 'aa'],
       'ae': ['a', 'ae'],
       'oe': ['o', 'oe'],
-      'ng': ['n', 'ng'],
+      'ng': ['n', 'ng']
   }

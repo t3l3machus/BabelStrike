@@ -9,7 +9,7 @@ The purpose of this tool is:
 1. to transliterate and generate possible usernames out of a full names list that may include names written in multiple (non-English) languages, common problem occurring from scraped employee name lists (e.g. from Linkedin).
 2. to transliterate a wordlist that may include words/phrases written in multiple (non-English) languages, common problem occurring from spidering web sites to generate wordlists, e.g., with [CeWL](https://www.kali.org/tools/cewl/).
 
-**Romanization feature currently supports**: Greek, Hindi, Spanish, French, Polish, Portuguese and Hungarian. Looking for people to contribute language classes, [check how it's done and contribute](#Contributions)!
+**Romanization feature currently supports**: Greek, Hindi, Spanish, French, Polish, Danish, Portuguese and Hungarian. Looking for people to contribute language classes, [check how it's done and contribute](#Contributions)!
 
 ### Video Presentation
 https://www.youtube.com/watch?v=550S6oAYfDo

@@ -13,9 +13,11 @@ GREEN = '\033[38;5;82m'
 ORANGE = '\033[0;38;5;214m'
 BOLD = '\033[1m'
 END = '\033[0m'
-
+MAIN = '\033[38;5;85m'
+FUXIA = '\033[38;5;201m'
 
 ''' Prefixes '''
+INFO = f'[{MAIN}Info{END}]'
 GREEN_DOT = f'[{GREEN}*{END}]'
 DEBUG = f'[{ORANGE}Debug{END}]'
 
@@ -89,36 +91,7 @@ def loadImports(path):
 
 	f.write(toWrite)
 	f.close()
-
-
-
-def update(repo):
 	
-		updated = False
-
-		try:
-
-			print(f'[{INFO}] Pulling changes from the master branch...')
-			u = check_output(f'cd {cwd}&&git pull {repo} main', shell=True).decode('utf-8')
-
-			if re.search('Updating', u):
-				print(f'[{INFO}] Update completed! Please, restart Villain.')
-				updated = True
-
-			elif re.search('Already up to date', u):
-				print(f'[{INFO}] Already running the latest version!')
-				pass
-
-			else:
-				print(f'[{FAILED}] Something went wrong. Are you running Villain from your local git repository?')
-				print(f'[{DEBUG}] Consider running "git {repo} main" inside the project\'s directory.')
-
-		except:
-			print(f'[{FAILED}] Update failed. Consider running "git pull {repo} main" inside the project\'s directory.')
-
-		if updated:
-			sys.exit(0)
-
 
 
 class Global:

@@ -5,26 +5,31 @@
 <img src="https://img.shields.io/badge/Maintained%3F-Yes-96c40f">
 
 ## Purpose
-The purpose of this tool is to normalize and generate possible usernames out of a full names list that may include names written in multiple (non-English) languages, common problem occuring from scraped employee names lists (e.g. from Linkedin).
+The purpose of this tool is: 
+1. to transliterate and generate possible usernames out of a full names list that may include names written in multiple (non-English) languages, common problem occurring from scraped employee name lists (e.g. from Linkedin).
+2. to transliterate a wordlist that may include words/phrases written in multiple (non-English) languages, common problem occurring from spidering web sites to generate wordlists, e.g., with [CeWL](https://www.kali.org/tools/cewl/).
 
-BabelStrike takes a full names list as input and performs 1. Romanization of non-English names (based on language alphabet transliteration maps) AND|OR 2. implements name-to-username conversions based on various naming convention rules.
-
-**Romanization feature currently supports**: Greek, Spanish and Polish. Looking for people to contribute language classes, [check how it's done and contribute](#Contributions)!
+**Romanization feature currently supports**: Greek, Hindi, Spanish, French, Polish, Danish, Portuguese and Hungarian. Looking for people to contribute language classes, [check how it's done and contribute](#Contributions)!
 
 ### Video Presentation
 https://www.youtube.com/watch?v=550S6oAYfDo
 
-## Preview
-![image](https://user-images.githubusercontent.com/75489922/213708017-4e435a6f-db5a-44bd-b66c-0a9b77073859.png)
-
-![image](https://user-images.githubusercontent.com/75489922/213708062-3d992884-5858-4bb3-92d3-42510e8ba567.png)
-
-
-## Name to Usernames Convertion Rules
-### Table of rules for generating usernames:  
-
-{f} = first letter of Name, {fi} = first two letters of Name ...  
-{l} = first letter of Lastname, {la} = first two letters of Lastname ...  
+## Usage Example
+### Transliterate words / phrases
+Use the following command to transliterate a list with words/phrases in multiple (non-English) languages:
+```
+python3 BabelStrike.py -f wordlist.txt -r
+```
+**Note**: Words that are too short will probably cause many language identification missmatches. If the result is inaccurate and you know which language should be used to transliterate from, provide it with --language (-l)
+```
+python3 BabelStrike.py -f wordlist.txt -r -l spanish
+```
+### Full names to possible usernames convertion
+Use the following command to transliterate and generate possible usernames out of a full names list that may include names written in multiple (non-English) languages
+```
+python3 BabelStrike.py -f full_names.txt -r -c -a
+```
+![image](https://github.com/t3l3machus/BabelStrike/assets/75489922/24426b7a-1e0b-4c93-9b6f-5bf658165f1a)
 
 **The rules can be automatically aplied to the reversed version of the full name as well, by using [-a].**
 
@@ -57,12 +62,18 @@ https://www.youtube.com/watch?v=550S6oAYfDo
 | {f} {middle} {lastname}          | {fi} {middle} {lastname} | {lastname} {middle} {fi}  |             |                |
 
 ## Installation & Usage
-Install with pip:
+### Install requirements with pip
 ```
 pip3 install -r requirements.txt
 ```
+### Install additional fonts for languages 
+In order to be able to process certain languages, you may need to install additional fonts on your machine. Here's for example how to install Hindi fonts:
+ 1. Download the fonts from here: https://fonts.google.com/specimen/Hind.
+ 2. Unzip and move the fonts in `~/.local/share/fonts` (if the directory does not exist then create it).
 
-Usage:
+If you open a new terminal now the characters will be represented properly (this was tested on kali linux).
+
+### Usage
 ```
 babelstrike.py [-h] -f FILE [-r] [-c] [-a] [-d DOMAIN] [-u] [-q]
 
@@ -103,4 +114,3 @@ If you want to contribute a language Class all you have to do is:
   }
   ```
 * Save the new class in the **language_classes** folder named appropriately.  
-
